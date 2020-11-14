@@ -1,0 +1,26 @@
+{
+  "name": "google-did-you-mean",
+  "version": "1.0.0",
+  "description": "Fetch Google search suggestions for misspelled queries by scraping for 'Did you mean...' and 'Showing results for...' links.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest test.js && standard",
+    "lint": "standard --fix"
+  },
+  "repository": "https://github.com/words/google-did-you-mean",
+  "author": "Zeke Sikelianos <zeke@sikelianos.com> (http://zeke.sikelianos.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "standard": "^16.0.2"
+  },
+  "dependencies": {
+    "axios": "^0.21.0",
+    "cheerio": "^1.0.0-rc.3"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
+  }
+}
