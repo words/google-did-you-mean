@@ -14,13 +14,11 @@ async function didYouMean (query) {
     response = await axios.get(url, { params })
     const html = response.data
     const $ = cheerio.load(html)
-    const suggestion = $('a[href^="/search?"][href*="spell=1"]')
-    return (suggestion && suggestion.length) ? $(suggestion[0]).text() : null
+    const suggestionLink = $('a[href^="/search?"][href*="spell=1"]')
+    const suggestion = (suggestionLink && suggestionLink.length) ? $(suggestionLink[0]).text() : null
+    return { suggestion }
   } catch (error) {
-    if (error.response.status !== 404) {
-      console.error('error fetching url', url, error)
-    }
-    return null
+    return { suggestion: null, error }
   }
 }
 

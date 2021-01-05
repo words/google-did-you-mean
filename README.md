@@ -23,11 +23,20 @@ npm install google-did-you-mean
 const didYouMean = require('google-did-you-mean')
 
 async function main () {
-  const suggestion = await didYouMean('fidooshiary')
-  console.log(suggestion) // => 'fiduciary'
+  const query = await didYouMean('fidooshiary')
+  console.log(query.suggestion) // => 'fiduciary'
 }
 
 main()
+```
+
+If you make too many requests in a short period of time from the same IP or network, you'll start getting 429 responses from Google. When this happens, an [axios `error` object](https://github.com/axios/axios#handling-errors) will be attached to resolved object:
+
+```js
+const query = await didYouMean('overzealous')
+if (query.error && query.error.request.response.statusCode === 429) {
+  console.log('uh oh! too many requests')
+}
 ```
 
 ## API
