@@ -22,11 +22,6 @@ describe('googleDidYouMean', () => {
     expect(query.suggestion).toEqual('george floyd')
   })
 
-  test('miluea', async () => {
-    const query = await didYouMean('miluea')
-    expect(query.suggestion).toEqual('milieu')
-  })
-
   test('good query', async () => {
     const query = await didYouMean('good query')
     expect(query.suggestion).toEqual(null)
