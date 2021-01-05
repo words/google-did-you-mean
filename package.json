@@ -1,6 +1,6 @@
 {
   "name": "google-did-you-mean",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Fetch Google search suggestions for misspelled queries by scraping for 'Did you mean...' and 'Showing results for...' links.",
   "main": "index.js",
   "scripts": {
