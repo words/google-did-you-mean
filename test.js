@@ -21,6 +21,11 @@ describe('googleDidYouMean', () => {
     expect(suggestion).toEqual('george floyd')
   })
 
+  test('miluea', async () => {
+    const suggestion = await didYouMean('miluea')
+    expect(suggestion).toEqual('milieu')
+  })
+
   test('good query', async () => {
     const suggestion = await didYouMean('good query')
     expect(suggestion).toEqual(null)
