@@ -1,33 +1,52 @@
 const didYouMean = require('.')
+const nock = require('nock')
 
 describe('googleDidYouMean', () => {
   test('monetery', async () => {
-    const suggestion = await didYouMean('monetery')
-    expect(suggestion).toEqual('monetary')
+    const query = await didYouMean('monetery')
+    expect(query.suggestion).toEqual('monetary')
   })
 
   test('fidooshiary', async () => {
-    const suggestion = await didYouMean('fidooshiary')
-    expect(suggestion).toEqual('fiduciary')
+    const query = await didYouMean('fidooshiary')
+    expect(query.suggestion).toEqual('fiduciary')
   })
 
   test('yee', async () => {
-    const suggestion = await didYouMean('yee yee')
-    expect(suggestion).toEqual(null)
+    const query = await didYouMean('yee yee')
+    expect(query.suggestion).toEqual(null)
   })
 
   test('george floid', async () => {
-    const suggestion = await didYouMean('george floid')
-    expect(suggestion).toEqual('george floyd')
+    const query = await didYouMean('george floid')
+    expect(query.suggestion).toEqual('george floyd')
   })
 
   test('miluea', async () => {
-    const suggestion = await didYouMean('miluea')
-    expect(suggestion).toEqual('milieu')
+    const query = await didYouMean('miluea')
+    expect(query.suggestion).toEqual('milieu')
   })
 
   test('good query', async () => {
-    const suggestion = await didYouMean('good query')
-    expect(suggestion).toEqual(null)
+    const query = await didYouMean('good query')
+    expect(query.suggestion).toEqual(null)
+  })
+
+  test('429 response (too many reqeusts)', async () => {
+    nock.disableNetConnect()
+    const mock = nock('https://www.google.com')
+      .get('/search')
+      .query({
+        q: 'hyperactive',
+        hl: 'en'
+      })
+      .reply(429)
+
+    const query = await didYouMean('hyperactive')
+    expect(mock.isDone()).toBe(true)
+    expect(query.suggestion).toBe(null)
+    expect(query.error.request.response.statusCode).toEqual(429)
+    nock.cleanAll()
+    nock.enableNetConnect()
   })
 })

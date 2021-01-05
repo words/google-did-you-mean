@@ -1,8 +1,8 @@
 const didYouMean = require('.')
 
 async function main () {
-  const suggestion = await didYouMean('fidooshiary')
-  console.log(suggestion) // => 'fiduciary'
+  const query = await didYouMean('fidooshiary')
+  console.log(query.suggestion) // => 'fiduciary'
 }
 
 main()
